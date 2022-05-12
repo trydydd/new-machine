@@ -17,6 +17,14 @@ read username
 echo "Adding apt repositories for depenencies"
 sudo add-apt-repository ppa:git-core/ppa -y # git apt repository
 
+# peek repo
+sudo add-apt-repository ppa:peek-developers/stable -y
+
+# protonvpn repo
+wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
+rm -f protonvpn-stable-release_1.0.1-1_all.deb
+
 # adding vscode repo and signing key
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -27,37 +35,29 @@ rm -f packages.microsoft.gpg
 wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-# peek repo
-sudo add-apt-repository ppa:peek-developers/stable -y
-
-# protonvpn repo
-wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
-sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
-rm -f protonvpn-stable-release_1.0.1-1_all.deb
-
 echo "Updating apt package information for all sources" 
 cd ~ && sudo apt update # This ensures that apt can determine what software and versions are available.
 
 echo 'Installing dependencies using apt' 
 sudo apt install \
-	curl \
-	neofetch \
-	xclip \
-	git \
-	python3-pip \
-	zsh \
-	fonts-firacode \
-	gpg \
-	wget \
 	apt-transport-https \
 	code \
+	curl \
+	fonts-firacode \
+	gir1.2-appindicator3-0.1 \
+	git \
+	gnome-shell-extension-appindicator \
+	gpg \
+	neofetch \
+	peek \
+	protonvpn \
+	python3-pip \
 	spotify-client \
 	vlc \
 	vlc-plugin-access-extra \
-	peek \
-	protonvpn \
-	gnome-shell-extension-appindicator \
-	gir1.2-appindicator3-0.1 \
+	wget \
+	xclip \
+	zsh \
 	-y
 
 
