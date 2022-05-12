@@ -60,7 +60,7 @@ sudo apt install \
 	protonvpn \
 	python3-pip \
 	spotify-client \
-	virtualbox-6.1 \
+	virtualbox \
 	vlc \
 	vlc-plugin-access-extra \
 	wget \
