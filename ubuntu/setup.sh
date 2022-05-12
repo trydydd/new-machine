@@ -2,6 +2,13 @@
 # TODO INSTALL DOCKER
 # TODO INSTALL DISCORD
 
+# check for file created when a machine is configured using our automation.
+FILE=~/.new-machine-configured
+if [[ -f "$FILE" ]]; then
+    echo "This machine has already been provisioned using this script. If you would like to run this script again delete ~/.new-machine-configured and run again."
+	exit 1
+fi
+
 echo "Enter GIT user.name?"
 echo "For example, \"Ricky Bobby\""
 read git_config_user_name
@@ -107,6 +114,9 @@ echo 'Paste the GPG key ID to export and add to your global .gitconfig'
 read gpg_key_id
 git config --global user.signingkey $gpg_key_id
 gpg --armor --export $gpg_key_id
+
+# creating file to indicate configuration was ran for future attempts
+echo "This machine was configured using new-machine https://github.com/trydydd/new-machine." > ~/.new-machine-configured
 
 echo 'All setup, enjoy!'
 
