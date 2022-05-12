@@ -20,6 +20,7 @@ A script for configuring a new machine with a clean install of Ubuntu.
 - protonvpn
 - python3-pip
 - spotify-client
+- virtualbox
 - vlc
 - wget
 - xclip
@@ -31,3 +32,4 @@ TODO: LATTE DOCK, DOCKER, DISCORD
 ## Themes and Addons Installed:
 - vlc-plugin-acess-extra
 - zsh spaceship theme
+- virtualbox-ext-pack
