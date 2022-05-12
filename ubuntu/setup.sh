@@ -32,15 +32,18 @@ wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
 sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
 rm -f protonvpn-stable-release_1.0.1-1_all.deb
 
+# adding spotify repo and signing key 
+wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
+# virtualbox repo from oracle
+sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+
 # adding vscode repo and signing key
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
-
-# adding spotify repo and signing key 
-wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 echo "Updating apt package information for all sources" 
 cd ~ && sudo apt update # This ensures that apt can determine what software and versions are available.
@@ -60,8 +63,7 @@ sudo apt install \
 	protonvpn \
 	python3-pip \
 	spotify-client \
-	virtualbox \
-	virtualbox-ext-pack \
+	virtualbox-6.1 \
 	vlc \
 	vlc-plugin-access-extra \
 	wget \
