@@ -37,6 +37,7 @@ wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | s
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 # virtualbox repo from oracle
+wget -q -O - https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" -y
 
 # adding vscode repo and signing key
