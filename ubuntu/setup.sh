@@ -27,21 +27,9 @@ sudo add-apt-repository ppa:git-core/ppa -y # git apt repository
 # peek repo
 sudo add-apt-repository ppa:peek-developers/stable -y
 
-# protonvpn repo
-wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
-sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
-rm -f protonvpn-stable-release_1.0.1-1_all.deb
-
 # adding spotify repo and signing key 
 wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-
-# virtualbox repo from oracle
-wget -qO- https://www.virtualbox.org/download/oracle_vbox_2016.asc | gpg --dearmor > oracle_vbox_2016.gpg
-wget -qO- https://www.virtualbox.org/download/oracle_vbox.asc | gpg --dearmor > oracle_vbox.gpg
-sudo install -o root -g root -m 644 oracle_vbox_2016.gpg /etc/apt/trusted.gpg.d/
-sudo install -o root -g root -m 644 oracle_vbox.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian focal contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list'
 
 # adding vscode repo and signing key
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -100,6 +88,12 @@ echo 'Installing Spaceship ZSH Theme'
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
+
+# protonvpn
+echo 'Installing protonvpn'
+wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
+rm -f protonvpn-stable-release_1.0.1-1_all.deb
 
 echo 'Installing Zoom'
 wget -c https://zoom.us/client/latest/zoom_amd64.deb
