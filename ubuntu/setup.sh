@@ -27,6 +27,11 @@ sudo add-apt-repository ppa:git-core/ppa -y # git apt repository
 # peek repo
 sudo add-apt-repository ppa:peek-developers/stable -y
 
+# protonvpn repo
+wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
+rm -f protonvpn-stable-release_1.0.1-1_all.deb
+
 # adding spotify repo and signing key 
 wget -q -O - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -89,11 +94,7 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
 
-# protonvpn
-echo 'Installing protonvpn'
-wget -q https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
-sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
-rm -f protonvpn-stable-release_1.0.1-1_all.deb
+
 
 echo 'Installing Zoom'
 wget -c https://zoom.us/client/latest/zoom_amd64.deb
