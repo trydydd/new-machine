@@ -96,10 +96,9 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
 
-# Removing zoom for now as there is a bug causing crashes in 22.04
-# echo 'Installing Zoom'
-# wget -c https://zoom.us/client/latest/zoom_amd64.deb
-# sudo apt install ./zoom_amd64.deb
+echo 'Installing Zoom'
+wget -c https://cdn.zoom.us/prod/5.9.6.2225/zoom_amd64.deb
+sudo apt install ./zoom_amd64.deb
 
 echo 'Updating and Cleaning Unnecessary Packages'
 sudo -- sh -c 'apt update; apt upgrade -y; apt full-upgrade -y; apt autoremove -y; apt autoclean -y'
