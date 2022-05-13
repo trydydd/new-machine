@@ -1,6 +1,8 @@
 # TODO INSTALL LATTE DOCK
 # TODO INSTALL DOCKER
 # TODO INSTALL DISCORD
+# TODO deprecate apt-key for /etc/apt/trusted.gpg.d
+# TODO move spotify to /etc/apt/trusted.gpg.d
 
 # check for file created when a machine is configured using our automation.
 FILE=~/.new-machine-configured
@@ -96,8 +98,7 @@ source ~/.zshrc
 
 echo 'Installing Zoom'
 wget -c https://zoom.us/client/latest/zoom_amd64.deb
-sudo dpkg -i zoom_amd64.deb
-sudo apt install -f -y && rm zoom_amd64.deb
+sudo apt install ./zoom_amd64.deb
 
 echo 'Updating and Cleaning Unnecessary Packages'
 sudo -- sh -c 'apt update; apt upgrade -y; apt full-upgrade -y; apt autoremove -y; apt autoclean -y'
