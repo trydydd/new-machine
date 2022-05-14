@@ -87,14 +87,21 @@ cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 echo 'Launching Firefox on Github so you can paste your keys'
 firefox https://github.com/settings/keys </dev/null >/dev/null 2>&1 & disown
 
-echo 'Indexing snap to ZSH'
-sudo chmod 777 /etc/zsh/zprofile
-echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" >> /etc/zsh/zprofile
+echo 'Configuring zsh using ohmyzsh install.sh'
+sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chsh -s $(which zsh)
+
+echo 'Copying .zshrc'
+cp dotfiles/.zshrc ~/
 
 echo 'Installing Spaceship ZSH Theme'
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
+
+echo 'Indexing snap to ZSH'
+sudo chmod 777 /etc/zsh/zprofile
+echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" >> /etc/zsh/zprofile
 
 echo 'Installing Zoom'
 wget -c https://cdn.zoom.us/prod/5.9.6.2225/zoom_amd64.deb
