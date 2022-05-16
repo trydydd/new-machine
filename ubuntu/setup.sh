@@ -84,28 +84,28 @@ ssh-keygen -t rsa -b 4096 -C $git_config_user_email
 ssh-add ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
-echo 'Launching Firefox on Github so you can paste your keys'
+echo 'Launching Firefox on Github so you can paste your SSH key'
 firefox https://github.com/settings/keys </dev/null >/dev/null 2>&1 & disown
-
-echo 'Configuring zsh using ohmyzsh install.sh'
-sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-chsh -s $(which zsh)
 
 echo 'Copying .zshrc'
 cp dotfiles/.zshrc ~/
+
+echo 'Configuring zsh using ohmyzsh install.sh'
+sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
+chsh -s $(which zsh)
+
+echo 'Indexing snap to ZSH'
+sudo chmod 777 /etc/zsh/zprofile
+echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" >> /etc/zsh/zprofile
 
 echo 'Installing Spaceship ZSH Theme'
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 source ~/.zshrc
 
-echo 'Indexing snap to ZSH'
-sudo chmod 777 /etc/zsh/zprofile
-echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" >> /etc/zsh/zprofile
-
 echo 'Installing Zoom'
 wget -c https://cdn.zoom.us/prod/5.9.6.2225/zoom_amd64.deb
-sudo apt install ./zoom_amd64.deb
+sudo apt install ./zoom_amd64.deb -y
 
 echo 'Updating and Cleaning Unnecessary Packages'
 sudo -- sh -c 'apt update; apt upgrade -y; apt full-upgrade -y; apt autoremove -y; apt autoclean -y'
@@ -118,10 +118,13 @@ echo 'Generating GPG key'
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format LONG
 
-echo 'Paste the GPG key ID to export and add to your global .gitconfig'
-read gpg_key_id
+echo 'Adding GPG key ID to your global .gitconfig'
+gpg_key_id=$(gpg --list-secret-keys --keyid-format LONG | grep sec | grep -o -P '(?<=/)[A-Z0-9]{16}')
 git config --global user.signingkey $gpg_key_id
-gpg --armor --export $gpg_key_id
+gpg --armor --export $gpg_key_id | xclip -selection clipboard
+
+echo 'Launching Firefox on Github so you can paste your GPG key'
+firefox https://github.com/settings/keys </dev/null >/dev/null 2>&1 & disown
 
 # creating file to indicate configuration was ran for future attempts
 echo "This machine was configured using new-machine https://github.com/trydydd/new-machine." > ~/.new-machine-configured
