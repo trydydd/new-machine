@@ -11,6 +11,10 @@ if [[ -f "$FILE" ]]; then
 	exit 1
 fi
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+cd ~ 
+
 echo "Enter GIT user.name?"
 echo "For example, \"Ricky Bobby\""
 read git_config_user_name
@@ -88,7 +92,7 @@ echo 'Launching Firefox on Github so you can paste your SSH key'
 firefox https://github.com/settings/keys </dev/null >/dev/null 2>&1 & disown
 
 echo 'Copying .zshrc'
-cp dotfiles/.zshrc ~/
+cp $SCRIPT_DIR/dotfiles/.zshrc ~/
 
 echo 'Configuring zsh using ohmyzsh install.sh'
 sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
